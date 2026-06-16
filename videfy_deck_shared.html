@@ -35,20 +35,27 @@
   .frame .lab{padding:9px 10px;font:700 12px/1.1 'Poppins',sans-serif;color:var(--white);border-top:1px solid var(--line)}
   .frame.key{border-color:var(--lime);box-shadow:0 0 0 2px rgba(184,251,116,.12)}
   .frame.key .lab{color:var(--lime)}
-  /* shared project mock */
-  .proj{display:flex;gap:24px;margin-top:46px;align-items:stretch}
-  .player{flex:1.25;border-radius:16px;border:1px solid var(--line);background:linear-gradient(180deg,#16212e,#0c121a);position:relative;min-height:298px;display:flex;align-items:center;justify-content:center;overflow:hidden}
-  .player .pl{width:66px;height:66px;border-radius:50%;background:var(--lime);color:var(--page);display:flex;align-items:center;justify-content:center;font-size:26px;padding-left:4px}
-  .player .ver{position:absolute;top:14px;right:14px;background:rgba(5,8,13,.6);border:1px solid rgba(184,251,116,.35);color:var(--lime);font:700 12px/1 'Poppins',sans-serif;padding:7px 12px;border-radius:999px}
-  .player .scrub{position:absolute;left:16px;right:16px;bottom:16px;height:5px;border-radius:3px;background:rgba(255,255,255,.12)}
-  .player .scrub::before{content:"";position:absolute;left:0;top:0;bottom:0;width:46%;border-radius:3px;background:linear-gradient(90deg,var(--cyan),var(--lime))}
-  .team{flex:1;display:flex;flex-direction:column;gap:11px}
-  .member{display:flex;align-items:center;gap:13px;background:var(--card);border:1px solid var(--line);border-radius:13px;padding:13px 16px}
-  .member .av{width:38px;height:38px;border-radius:50%;flex:0 0 auto;display:flex;align-items:center;justify-content:center;font:800 14px/1 'Poppins',sans-serif;color:#0c121a}
-  .member .mn{font:700 16px/1.1 'Poppins',sans-serif;color:var(--white)}
-  .member .ms{color:var(--muted);font-size:13px;margin-top:2px}
-  .sharedbar{margin-top:16px;display:flex;align-items:center;justify-content:center;gap:14px;background:linear-gradient(180deg,rgba(184,251,116,.07),rgba(15,19,29,.85));border:1px solid rgba(184,251,116,.30);border-radius:16px;padding:20px;color:var(--white);font:700 20px/1 'Poppins',sans-serif}
-  .sharedbar .dot{width:9px;height:9px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 4px rgba(184,251,116,.18)}
+  /* shared team workspace */
+  .ws{margin-top:42px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(180deg,#10161f,#0c121a);overflow:hidden}
+  .wshead{display:flex;align-items:center;justify-content:space-between;padding:20px 26px;border-bottom:1px solid var(--line)}
+  .wshead .pt{display:flex;align-items:center;gap:12px;font:700 20px/1 'Poppins',sans-serif;color:var(--white)}
+  .wshead .pt .live{width:9px;height:9px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 4px rgba(184,251,116,.18)}
+  .wshead .crew{display:flex;align-items:center;gap:13px}
+  .avstack{display:flex}
+  .avstack .av{width:40px;height:40px;border-radius:50%;border:2px solid #0c121a;margin-left:-11px;display:flex;align-items:center;justify-content:center;font:800 15px/1 'Poppins',sans-serif;color:#0c121a}
+  .avstack .av:first-child{margin-left:0}
+  .crew .lbl{color:var(--muted);font:600 14px/1 'Poppins',sans-serif}
+  .wsbody{display:flex}
+  .wsv{width:300px;flex:0 0 auto;border-right:1px solid var(--line);background:linear-gradient(180deg,#16212e,#0c121a);position:relative;min-height:248px;display:flex;align-items:center;justify-content:center}
+  .wsv .pl{width:58px;height:58px;border-radius:50%;background:var(--lime);color:var(--page);display:flex;align-items:center;justify-content:center;font-size:23px;padding-left:3px}
+  .wsv .ver{position:absolute;top:13px;right:13px;background:rgba(5,8,13,.6);border:1px solid rgba(184,251,116,.35);color:var(--lime);font:700 11px/1 'Poppins',sans-serif;padding:6px 10px;border-radius:999px}
+  .feed{flex:1;padding:6px 24px;display:flex;flex-direction:column;justify-content:center}
+  .fitem{display:flex;align-items:center;gap:13px;padding:13px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+  .fitem:last-child{border-bottom:none}
+  .fitem .fav{width:34px;height:34px;border-radius:50%;flex:0 0 auto;display:flex;align-items:center;justify-content:center;font:800 13px/1 'Poppins',sans-serif;color:#0c121a}
+  .fitem .ft{font:600 17px/1.2 'Poppins',sans-serif;color:var(--white)}
+  .fitem .ft b{color:var(--mint);font-weight:700}
+  .fitem .fm{margin-left:auto;color:var(--muted);font-size:13px;white-space:nowrap}
   /* shared caption row */
   .flowcap{display:flex;justify-content:space-between;margin-top:26px;color:var(--muted);font:600 15px/1.4 'Poppins',sans-serif;gap:30px}
   .flowcap span{flex:1}.flowcap b{color:var(--white);font-weight:700}
@@ -80,8 +87,7 @@
 </style></head><body><div class="deck">
 <section class="slide center cover"><div class="topbar"><img class="logo" src="videfy_logo.png" alt="VIDEFY.ai"><span class="pageno">For agencies & production teams</span></div><div class="eyebrow">Videfy</div><h1>One project. <acc>Everyone in it.</acc></h1><p class="lead">Clients, editors, reviewers, and producers all work in the same project. No scattered files. No "which cut is final?"</p></section>
 <section class="slide"><div class="topbar"><img class="logo" src="videfy_logo.png" alt="VIDEFY.ai"><span class="pageno">02</span></div><div style="margin-top:60px"></div><h2>The feedback is everywhere but the project.</h2><p class="lead">Notes come in over email, DMs, and exports. Versions pile up. Nobody is sure which cut is the final one, and the client is out of the loop.</p><p class="sub">Chasing the latest file is not the work.</p></section>
-<section class="slide"><div class="topbar"><img class="logo" src="videfy_logo.png" alt="VIDEFY.ai"><span class="pageno">03</span></div><div style="margin-top:20px"></div><h2>Everyone in the same project.</h2><div class="proj"><div class="player"><div class="ver">v3 · current</div><div class="pl">&#9654;</div><div class="scrub"></div></div><div class="team"><div class="member"><div class="av" style="background:#56B2B4">C</div><div><div class="mn">Client</div><div class="ms">Reviewing the cut</div></div></div><div class="member"><div class="av" style="background:#B8FB74">E</div><div><div class="mn">Editor</div><div class="ms">Editing now</div></div></div><div class="member"><div class="av" style="background:#A3F29F">R</div><div><div class="mn">Reviewer</div><div class="ms">Added notes</div></div></div><div class="member"><div class="av" style="background:#DDEB78">P</div><div><div class="mn">Producer</div><div class="ms">Tracking delivery</div></div></div></div></div>
-    <div class="sharedbar"><span class="dot"></span>One shared project — everyone sees the same version</div><div class="flowcap"><span><b>One workspace.</b> &nbsp;Client, editor, reviewer, and producer all open the same project.</span><span><b>One version.</b> &nbsp;Everyone sees the same cut. No stray exports floating around.</span><span><b>One place to review.</b> &nbsp;Clients leave their notes inside the project, not in your inbox.</span></div></section>
+<section class="slide"><div class="topbar"><img class="logo" src="videfy_logo.png" alt="VIDEFY.ai"><span class="pageno">03</span></div><div style="margin-top:20px"></div><h2>Everyone in the same project.</h2><div class="ws"><div class="wshead"><div class="pt"><span class="live"></span>Brand Launch — shared project</div><div class="crew"><div class="avstack"><div class="av" style="background:#56B2B4">C</div><div class="av" style="background:#B8FB74">E</div><div class="av" style="background:#A3F29F">R</div><div class="av" style="background:#DDEB78">P</div></div><span class="lbl">4 in here</span></div></div><div class="wsbody"><div class="wsv"><div class="ver">v3 · current</div><div class="pl">&#9654;</div></div><div class="feed"><div class="fitem"><div class="fav" style="background:#56B2B4">C</div><div class="ft"><b>Client</b> approved the cut</div><div class="fm">2m</div></div><div class="fitem"><div class="fav" style="background:#B8FB74">E</div><div class="ft"><b>Editor</b> uploaded v3</div><div class="fm">14m</div></div><div class="fitem"><div class="fav" style="background:#A3F29F">R</div><div class="ft"><b>Reviewer</b> left 3 notes</div><div class="fm">1h</div></div><div class="fitem"><div class="fav" style="background:#DDEB78">P</div><div class="ft"><b>Producer</b> set delivery to Friday</div><div class="fm">2h</div></div></div></div></div><div class="flowcap"><span><b>One workspace.</b> &nbsp;Client, editor, reviewer, and producer all open the same project.</span><span><b>One version.</b> &nbsp;Everyone sees the same cut. No stray exports floating around.</span><span><b>One place to review.</b> &nbsp;Clients leave their notes inside the project, not in your inbox.</span></div></section>
 <section class="slide"><div class="topbar"><img class="logo" src="videfy_logo.png" alt="VIDEFY.ai"><span class="pageno">04</span></div><div style="margin-top:18px"></div><h2>What working in one project gives you.</h2><div class="levers"><div class="lever"><h4>One shared workspace</h4><p>Everyone on the video opens the same project.</p></div><div class="lever"><h4>Assets in one place</h4><p>Footage, audio, and graphics live in shared Asset Galleries.</p></div><div class="lever"><h4>One version of the truth</h4><p>There is one current cut, and everyone is looking at it.</p></div><div class="lever"><h4>Clients review in-project</h4><p>Clients leave notes where the work lives, not over email.</p></div><div class="lever"><h4>Organized per client</h4><p>Each client gets their own folder. Nothing gets mixed up.</p></div><div class="lever"><h4>Branded, no watermark</h4><p>Deliver from your project with your brand. No Videfy stamp.</p></div></div></section>
 <section class="slide"><div class="topbar"><img class="logo" src="videfy_logo.png" alt="VIDEFY.ai"><span class="pageno">05</span></div><div style="margin-top:54px"></div><h2>One project. One source of truth.</h2><p class="lead">Stop chasing the final cut across inboxes. It lives in one place, and everyone can find it.</p></section>
 <section class="slide center"><div class="topbar"><img class="logo" src="videfy_logo.png" alt="VIDEFY.ai"><span class="pageno">Get started</span></div><div class="eyebrow">Get your team in one project</div>
