@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Videfy — One Place</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--page:#0A0D16;--card:#0F131D;--line:rgba(255,255,255,.07);--lime:#B8FB74;--mint:#A3F29F;--cyan:#56B2B4;--white:#F4F5F7;--body:#AEB4BE;--muted:#8B919C;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:#05070C;font-family:'Inter',-apple-system,sans-serif;color:var(--body);-webkit-font-smoothing:antialiased}
+  .deck{display:flex;flex-direction:column;align-items:center;gap:26px;padding:34px 0 90px}
+  .slide{position:relative;width:1280px;height:720px;flex:0 0 auto;overflow:hidden;background:radial-gradient(1100px 540px at 50% -180px,rgba(46,72,86,.36),transparent 70%),var(--page);border:1px solid var(--line);border-radius:18px;padding:70px 84px}
+  .slide.center{display:flex;flex-direction:column;justify-content:center}
+  .logo{height:26px;width:auto;display:block}
+  .topbar{position:absolute;top:42px;left:84px;right:84px;display:flex;align-items:center;justify-content:space-between}
+  .pageno{color:#5A626E;font:600 11px/1 'Poppins',sans-serif;letter-spacing:.22em;text-transform:uppercase}
+  .eyebrow{color:var(--lime);font:700 13px/1 'Poppins',sans-serif;letter-spacing:.20em;text-transform:uppercase}
+  h1{font-family:'Poppins',sans-serif;font-weight:800;font-size:74px;line-height:1.06;color:var(--white);letter-spacing:-.02em;margin-top:20px}
+  acc{color:var(--mint);background-image:linear-gradient(var(--mint),var(--mint));background-size:100% 5px;background-position:0 100%;background-repeat:no-repeat;padding-bottom:3px}
+  h2{font-family:'Poppins',sans-serif;font-weight:800;font-size:44px;line-height:1.1;color:var(--white);letter-spacing:-.015em;position:relative;padding-left:22px}
+  h2::before{content:"";position:absolute;left:0;top:.1em;height:.82em;width:6px;border-radius:4px;background:linear-gradient(180deg,var(--cyan),var(--lime))}
+  .lead{color:var(--body);font-size:24px;line-height:1.55;margin-top:26px;max-width:980px}
+  .sub{color:var(--muted);font-size:20px;line-height:1.55;margin-top:18px;max-width:960px}
+  .cover .eyebrow{margin-top:0}.cover .lead{font-size:25px;margin-top:32px;max-width:900px}
+
+  /* scattered old way */
+  .scatter{display:flex;flex-wrap:wrap;gap:14px;margin-top:50px;max-width:1040px}
+  .tool{padding:14px 20px;border-radius:12px;background:#10141d;border:1px dashed rgba(255,255,255,.14);color:var(--muted);font:600 17px/1 'Poppins',sans-serif}
+  .tool .x{color:#6b7280;margin-left:8px}
+
+  /* one-place pipeline */
+  .pipewrap{margin-top:54px}
+  .pipelabel{display:inline-flex;align-items:center;gap:9px;color:var(--lime);font:700 13px/1 'Poppins',sans-serif;letter-spacing:.16em;text-transform:uppercase;margin-bottom:16px}
+  .pipelabel .dot{width:9px;height:9px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 4px rgba(184,251,116,.18)}
+  .pipe{display:flex;align-items:center;background:linear-gradient(180deg,rgba(184,251,116,.06),rgba(15,19,29,.85));border:1px solid rgba(184,251,116,.30);border-radius:18px;padding:26px 24px}
+  .stage{flex:1;display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center}
+  .stage .sd{width:48px;height:48px;border-radius:13px;background:#16202c;border:1px solid rgba(184,251,116,.35);display:flex;align-items:center;justify-content:center}
+  .stage .sd svg{width:23px;height:23px;stroke:var(--mint);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+  .stage .sl{font:700 16px/1.1 'Poppins',sans-serif;color:var(--white)}
+  .parrow{color:var(--cyan);font-size:22px;flex:0 0 auto;padding:0 4px;margin-bottom:24px}
+  .pipecap{display:flex;justify-content:space-between;margin-top:26px;color:var(--muted);font:600 15px/1.4 'Poppins',sans-serif;gap:30px}
+  .pipecap span{flex:1}.pipecap b{color:var(--white);font-weight:700}
+
+  /* feature grid */
+  .levers{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:50px}
+  .lever{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px 28px;position:relative;overflow:hidden}
+  .lever::before{content:"";position:absolute;left:0;top:16px;bottom:16px;width:4px;border-radius:4px;background:linear-gradient(180deg,var(--cyan),var(--lime))}
+  .lever h4{font:700 21px/1.1 'Poppins',sans-serif;color:var(--white);margin-bottom:9px;padding-left:8px}
+  .lever p{color:var(--muted);font-size:16px;line-height:1.5;padding-left:8px}
+
+  /* proof */
+  .pcols{display:flex;gap:26px;margin-top:50px;align-items:stretch}
+  .pmain{flex:1.1;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:36px 38px;position:relative;overflow:hidden}
+  .pmain::before{content:"";position:absolute;left:0;top:20px;bottom:20px;width:5px;border-radius:4px;background:linear-gradient(180deg,var(--cyan),var(--lime))}
+  .pmain .q{color:var(--white);font-size:25px;line-height:1.45;font-weight:500;padding-left:14px}
+  .pmain .by{color:var(--muted);font-size:16px;margin-top:18px;padding-left:14px}
+  .pslot{flex:.9;border:1px dashed rgba(184,251,116,.32);border-radius:18px;background:linear-gradient(180deg,rgba(86,178,180,.07),rgba(15,19,29,.7));display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;padding:28px}
+  .pslot .big{font:800 30px/1.1 'Poppins',sans-serif;color:var(--mint)}
+  .pslot .lbl{font:700 12px/1.5 'Poppins',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+
+  /* cta */
+  .chips{display:flex;align-items:center;margin-top:42px;max-width:860px}
+  .chip{padding:13px 22px;border-radius:999px;white-space:nowrap;background:#121826;border:1px solid rgba(255,255,255,.09);color:var(--lime);font:600 16px/1 'Poppins',sans-serif}
+  .chip.live{background:var(--lime);color:var(--page);border-color:var(--lime);font-weight:700}
+  .conn{flex:1;height:1px;min-width:18px;background:linear-gradient(90deg,rgba(184,251,116,.45),rgba(184,251,116,.18))}
+  .btn{display:inline-block;margin-top:36px;background:var(--lime);color:var(--page);font:700 18px/1 'Poppins',sans-serif;padding:18px 30px;border-radius:12px;text-decoration:none}
+  .fine{color:var(--muted);font-size:17px;line-height:1.5;margin-top:22px}
+  .hint{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);background:#10141f;border:1px solid var(--line);color:var(--muted);font:600 12px/1 'Poppins',sans-serif;letter-spacing:.06em;padding:9px 16px;border-radius:999px;z-index:50}
+  @page{size:1280px 720px;margin:0}
+  @media print{html,body{background:#fff}.deck{gap:0;padding:0}.slide{border:none;border-radius:0;page-break-after:always;break-after:page}.hint{display:none}}
+</style>
+</head>
+<body>
+<div class="deck">
+
+  <!-- 1 · COVER -->
+  <section class="slide center cover">
+    <div class="topbar"><img class="logo" src="videfy_logo.png" alt="VIDEFY.ai"><span class="pageno">For video teams</span></div>
+    <div class="eyebrow">Videfy</div>
+    <h1>Make the whole video<br><acc>in one place.</acc></h1>
+    <p class="lead">Script, voiceover, visuals, editing, captions, and publishing — all in Videfy, instead of five tools that don't talk to each other.</p>
+  </section>
+
+  <!-- 2 · PROBLEM -->
+  <section class="slide">
+    <div class="topbar"><img class="logo" src="videfy_logo.png" alt="VIDEFY.ai"><span class="pageno">02</span></div>
+    <div style="margin-top:60px"></div>
+    <h2>Five tools. None of them talk.</h2>
+    <p class="lead">Script in one app, voiceover in another, visuals somewhere else, captions in a fourth. Half the work is just moving files between them and fixing what broke on the way.</p>
+    <div class="scatter">
+      <div class="tool">Script doc<span class="x">↘</span></div>
+      <div class="tool">Voiceover app<span class="x">↘</span></div>
+      <div class="tool">Stock + visuals<span class="x">↘</span></div>
+      <div class="tool">Editor<span class="x">↘</span></div>
+      <div class="tool">Caption tool<span class="x">↘</span></div>
+      <div class="tool">Export &amp; re-upload<span class="x">↘</span></div>
+    </div>
+  </section>
+
+  <!-- 3 · ONE PLACE (pipeline) -->
+  <section class="slide">
+    <div class="topbar"><img class="logo" src="videfy_logo.png" alt="VIDEFY.ai"><span class="pageno">03</span></div>
+    <div style="margin-top:20px"></div>
+    <h2>One place, start to finish.</h2>
+    <div class="pipewrap">
+      <div class="pipelabel"><span class="dot"></span>Inside Videfy</div>
+      <div class="pipe">
+        <div class="stage"><div class="sd"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="13" y2="16"/></svg></div><div class="sl">Script</div></div>
+        <div class="parrow">&rarr;</div>
+        <div class="stage"><div class="sd"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M6 11 a6 6 0 0 0 12 0"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div><div class="sl">Voiceover</div></div>
+        <div class="parrow">&rarr;</div>
+        <div class="stage"><div class="sd"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M5 18 l5-5 4 4 2-2 3 3"/></svg></div><div class="sl">Visuals</div></div>
+        <div class="parrow">&rarr;</div>
+        <div class="stage"><div class="sd"><svg viewBox="0 0 24 24"><line x1="4" y1="8" x2="20" y2="8"/><circle cx="9" cy="8" r="2.6" fill="#16202c"/><line x1="4" y1="16" x2="20" y2="16"/><circle cx="15" cy="16" r="2.6" fill="#16202c"/></svg></div><div class="sl">Edit</div></div>
+        <div class="parrow">&rarr;</div>
+        <div class="stage"><div class="sd"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 10 a2.5 2.5 0 0 0 0 4"/><path d="M16 10 a2.5 2.5 0 0 0 0 4"/></svg></div><div class="sl">Captions</div></div>
+        <div class="parrow">&rarr;</div>
+        <div class="stage"><div class="sd"><svg viewBox="0 0 24 24"><path d="M12 19 V5"/><path d="M6 11 l6-6 6 6"/></svg></div><div class="sl">Publish</div></div>
+      </div>
+    </div>
+    <div class="pipecap">
+      <span><b>Nothing to export.</b> &nbsp;Each step hands straight to the next.</span>
+      <span><b>Nothing to reconcile.</b> &nbsp;One file, one timeline.</span>
+      <span><b>Nothing breaks.</b> &nbsp;No files lost between apps.</span>
+    </div>
+  </section>
+
+  <!-- 4 · WHAT'S INSIDE -->
+  <section class="slide">
+    <div class="topbar"><img class="logo" src="videfy_logo.png" alt="VIDEFY.ai"><span class="pageno">04</span></div>
+    <div style="margin-top:18px"></div>
+    <h2>Everything the video needs.</h2>
+    <div class="levers">
+      <div class="lever"><h4>AI Generation</h4><p>Make visuals, voice, and music from a prompt.</p></div>
+      <div class="lever"><h4>Storyboard</h4><p>Plan the whole video before you build it.</p></div>
+      <div class="lever"><h4>Editor</h4><p>A full editing suite — no round-trips to another app.</p></div>
+      <div class="lever"><h4>Voiceover</h4><p>AI voice in the language and tone you need.</p></div>
+      <div class="lever"><h4>Captions</h4><p>Auto-subtitles in any language, instantly.</p></div>
+      <div class="lever"><h4>Publish</h4><p>Export branded, no watermark, straight out.</p></div>
+    </div>
+  </section>
+
+  <!-- 5 · PROOF -->
+  <section class="slide">
+    <div class="topbar"><img class="logo" src="videfy_logo.png" alt="VIDEFY.ai"><span class="pageno">05</span></div>
+    <div style="margin-top:40px"></div>
+    <h2>One file. One timeline. One export.</h2>
+    <p class="lead">No exporting, re-importing, or reconciling versions across apps. The whole video lives in one project — so the time you spent moving files goes back into the work.</p>
+  </section>
+
+  <!-- 6 · CTA -->
+  <section class="slide center">
+    <div class="topbar"><img class="logo" src="videfy_logo.png" alt="VIDEFY.ai"><span class="pageno">Get started</span></div>
+    <div class="eyebrow">Try it on your next video</div>
+    <h1 style="font-size:60px;margin-top:18px">Start to finish.<br><acc>One place.</acc></h1>
+    <div class="chips">
+      <span class="chip">Script</span><span class="conn"></span>
+      <span class="chip">Edit</span><span class="conn"></span>
+      <span class="chip">Caption</span><span class="conn"></span>
+      <span class="chip live">Publish</span>
+    </div>
+    <a class="btn" href="https://videfy.ai">Try Videfy &rarr;</a>
+    <p class="fine">Make your next video start to finish in one tab. &nbsp;·&nbsp; videfy.ai</p>
+  </section>
+
+</div>
+<div class="hint">← → move · F fullscreen · ⌘P / Ctrl-P export PDF · 6 slides</div>
+<script>
+const s=[...document.querySelectorAll('.slide')];let i=0;
+function go(n){i=Math.max(0,Math.min(s.length-1,n));s[i].scrollIntoView({behavior:'smooth',block:'center'});}
+addEventListener('keydown',e=>{if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();go(i+1);}else if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();go(i-1);}else if(e.key==='Home')go(0);else if(e.key==='End')go(s.length-1);else if(e.key.toLowerCase()==='f'){document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();}});
+</script>
+</body>
+</html>

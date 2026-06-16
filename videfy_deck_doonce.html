@@ -1,0 +1,91 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Videfy — doonce</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--page:#0A0D16;--card:#0F131D;--line:rgba(255,255,255,.07);--lime:#B8FB74;--mint:#A3F29F;--cyan:#56B2B4;--white:#F4F5F7;--body:#AEB4BE;--muted:#8B919C;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:#05070C;font-family:'Inter',-apple-system,sans-serif;color:var(--body);-webkit-font-smoothing:antialiased}
+  .deck{display:flex;flex-direction:column;align-items:center;gap:26px;padding:34px 0 90px}
+  .slide{position:relative;width:1280px;height:720px;flex:0 0 auto;overflow:hidden;background:radial-gradient(1100px 540px at 50% -180px,rgba(46,72,86,.36),transparent 70%),var(--page);border:1px solid var(--line);border-radius:18px;padding:70px 84px}
+  .slide.center{display:flex;flex-direction:column;justify-content:center}
+  .logo{height:26px;width:auto;display:block}
+  .topbar{position:absolute;top:42px;left:84px;right:84px;display:flex;align-items:center;justify-content:space-between}
+  .pageno{color:#5A626E;font:600 11px/1 'Poppins',sans-serif;letter-spacing:.22em;text-transform:uppercase}
+  .eyebrow{color:var(--lime);font:700 13px/1 'Poppins',sans-serif;letter-spacing:.20em;text-transform:uppercase}
+  h1{font-family:'Poppins',sans-serif;font-weight:800;font-size:70px;line-height:1.07;color:var(--white);letter-spacing:-.02em;margin-top:20px}
+  acc{color:var(--mint);background-image:linear-gradient(var(--mint),var(--mint));background-size:100% 5px;background-position:0 100%;background-repeat:no-repeat;padding-bottom:3px}
+  h2{font-family:'Poppins',sans-serif;font-weight:800;font-size:44px;line-height:1.1;color:var(--white);letter-spacing:-.015em;position:relative;padding-left:22px}
+  h2::before{content:"";position:absolute;left:0;top:.1em;height:.82em;width:6px;border-radius:4px;background:linear-gradient(180deg,var(--cyan),var(--lime))}
+  .lead{color:var(--body);font-size:24px;line-height:1.55;margin-top:26px;max-width:980px}
+  .sub{color:var(--muted);font-size:20px;line-height:1.55;margin-top:18px;max-width:960px}
+  .cover .eyebrow{margin-top:0}.cover .lead{font-size:25px;margin-top:32px;max-width:900px}
+  /* doc -> video transform (explainer) */
+  .xform{display:flex;align-items:center;justify-content:center;gap:30px;margin-top:50px}
+  .doc{width:296px;height:312px;border-radius:14px;background:linear-gradient(180deg,#141d28,#0e1620);border:1px solid var(--line);padding:28px;flex:0 0 auto}
+  .doc .dh{width:58%;height:13px;border-radius:4px;background:rgba(184,251,116,.55);margin-bottom:22px}
+  .doc .dl{height:9px;border-radius:4px;background:rgba(255,255,255,.13);margin-bottom:13px}
+  .doc .dl.s{width:88%}.doc .dl.m{width:96%}.doc .dl.x{width:70%}
+  .xarrow{flex:0 0 auto;color:var(--cyan);font-size:32px}
+  .vid{width:560px;height:312px;border-radius:16px;background:linear-gradient(180deg,#16212e,#0c121a);border:1px solid rgba(184,251,116,.30);position:relative;display:flex;align-items:center;justify-content:center;flex:0 0 auto;overflow:hidden}
+  .vid .pl{width:66px;height:66px;border-radius:50%;background:var(--lime);color:var(--page);display:flex;align-items:center;justify-content:center;font-size:26px;padding-left:4px}
+  .vid .cc{position:absolute;left:50%;bottom:48px;transform:translateX(-50%);background:rgba(5,8,13,.7);color:#fff;font:600 14px/1 'Poppins',sans-serif;padding:8px 14px;border-radius:7px;white-space:nowrap}
+  .vid .scrub{position:absolute;left:18px;right:18px;bottom:18px;height:5px;border-radius:3px;background:rgba(255,255,255,.12)}
+  .vid .scrub::before{content:"";position:absolute;left:0;top:0;bottom:0;width:40%;border-radius:3px;background:linear-gradient(90deg,var(--cyan),var(--lime))}
+  /* automated passes (do-once) */
+  .autop{display:flex;gap:26px;margin-top:46px;align-items:stretch}
+  .scr{flex:1.15;border-radius:16px;border:1px solid rgba(184,251,116,.3);background:linear-gradient(180deg,#16212e,#0c121a);position:relative;min-height:300px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .scr .pl{width:66px;height:66px;border-radius:50%;background:var(--lime);color:var(--page);display:flex;align-items:center;justify-content:center;font-size:26px;padding-left:4px}
+  .scr .cc{position:absolute;top:14px;left:14px;background:rgba(5,8,13,.6);color:#fff;font:600 13px/1 'Poppins',sans-serif;padding:7px 12px;border-radius:7px}
+  .scr .scrub{position:absolute;left:16px;right:16px;bottom:16px;height:5px;border-radius:3px;background:rgba(255,255,255,.12)}
+  .scr .scrub::before{content:"";position:absolute;left:0;top:0;bottom:0;width:52%;border-radius:3px;background:linear-gradient(90deg,var(--cyan),var(--lime))}
+  .tasks{flex:1;display:flex;flex-direction:column;gap:11px;justify-content:center}
+  .task{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:13px;padding:14px 17px}
+  .task .ck{width:26px;height:26px;border-radius:50%;flex:0 0 auto;display:flex;align-items:center;justify-content:center;font:800 13px/1 'Poppins',sans-serif;background:var(--lime);color:var(--page)}
+  .task.run .ck{background:transparent;border:2px solid var(--lime);color:var(--lime)}
+  .task .tt{font:700 16px/1.1 'Poppins',sans-serif;color:var(--white)}
+  .task .ts{color:var(--muted);font-size:13px;margin-top:2px}
+  .flowcap{display:flex;justify-content:space-between;margin-top:30px;color:var(--muted);font:600 15px/1.4 'Poppins',sans-serif;gap:30px}
+  .flowcap span{flex:1}.flowcap b{color:var(--white);font-weight:700}
+  /* levers */
+  .levers{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:46px}
+  .lever{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px 28px;position:relative;overflow:hidden}
+  .lever::before{content:"";position:absolute;left:0;top:16px;bottom:16px;width:4px;border-radius:4px;background:linear-gradient(180deg,var(--cyan),var(--lime))}
+  .lever h4{font:700 21px/1.1 'Poppins',sans-serif;color:var(--white);margin-bottom:9px;padding-left:8px}
+  .lever p{color:var(--muted);font-size:16px;line-height:1.5;padding-left:8px}
+  /* proof */
+  .pcols{display:flex;gap:26px;margin-top:46px;align-items:stretch}
+  .pmain{flex:1.1;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:36px 38px;position:relative;overflow:hidden}
+  .pmain::before{content:"";position:absolute;left:0;top:20px;bottom:20px;width:5px;border-radius:4px;background:linear-gradient(180deg,var(--cyan),var(--lime))}
+  .pmain .q{color:var(--white);font-size:25px;line-height:1.45;font-weight:500;padding-left:14px}
+  .pmain .by{color:var(--muted);font-size:16px;margin-top:18px;padding-left:14px}
+  .pslot{flex:.9;border:1px dashed rgba(184,251,116,.32);border-radius:18px;background:linear-gradient(180deg,rgba(86,178,180,.07),rgba(15,19,29,.7));display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;padding:28px}
+  .pslot .big{font:800 30px/1.1 'Poppins',sans-serif;color:var(--mint)}
+  .pslot .lbl{font:700 12px/1.5 'Poppins',sans-serif;letter-spacing:.10em;text-transform:uppercase;color:var(--muted)}
+  /* cta */
+  .chips{display:flex;align-items:center;margin-top:40px;max-width:980px}
+  .chip{padding:13px 20px;border-radius:999px;white-space:nowrap;background:#121826;border:1px solid rgba(255,255,255,.09);color:var(--lime);font:600 15px/1 'Poppins',sans-serif}
+  .chip.live{background:var(--lime);color:var(--page);border-color:var(--lime);font-weight:700}
+  .conn{flex:1;height:1px;min-width:14px;background:linear-gradient(90deg,rgba(184,251,116,.45),rgba(184,251,116,.18))}
+  .btn{display:inline-block;margin-top:34px;background:var(--lime);color:var(--page);font:700 18px/1 'Poppins',sans-serif;padding:18px 30px;border-radius:12px;text-decoration:none}
+  .fine{color:var(--muted);font-size:17px;line-height:1.5;margin-top:22px}
+  .hint{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);background:#10141f;border:1px solid var(--line);color:var(--muted);font:600 12px/1 'Poppins',sans-serif;letter-spacing:.06em;padding:9px 16px;border-radius:999px;z-index:50}
+  @page{size:1280px 720px;margin:0}
+  @media print{html,body{background:#fff}.deck{gap:0;padding:0}.slide{border:none;border-radius:0;page-break-after:always;break-after:page}.hint{display:none}}
+</style></head><body><div class="deck">
+<section class="slide center cover"><div class="topbar"><img class="logo" src="videfy_logo.png" alt="VIDEFY.ai"><span class="pageno">For busy creative teams</span></div><div class="eyebrow">Videfy</div><h1>Stop redoing<br><acc>the same edits.</acc></h1><p class="lead">Resizing, re-captioning, re-exporting — Videfy runs the repetitive passes so your team stops doing them by hand.</p></section>
+<section class="slide"><div class="topbar"><img class="logo" src="videfy_logo.png" alt="VIDEFY.ai"><span class="pageno">02</span></div><div style="margin-top:60px"></div><h2>Every step still needs a person to double-check.</h2><p class="lead">Resizing, re-captioning, re-exporting — again and again. None of it is creative. It's manual work that eats the hours your team should spend making the next thing.</p><p class="sub">AI was supposed to remove the busywork. Most workflows just moved it.</p></section>
+<section class="slide"><div class="topbar"><img class="logo" src="videfy_logo.png" alt="VIDEFY.ai"><span class="pageno">03</span></div><div style="margin-top:20px"></div><h2>The passes run themselves.</h2><div class="autop">
+  <div class="scr"><div class="cc">Your video</div><div class="pl">&#9654;</div><div class="scrub"></div></div>
+  <div class="tasks"><div class="task"><div class="ck">&#10003;</div><div><div class="tt">Resized</div><div class="ts">9:16, 1:1, and 16:9</div></div></div><div class="task"><div class="ck">&#10003;</div><div><div class="tt">Captioned</div><div class="ts">subtitles in every language</div></div></div><div class="task"><div class="ck">&#10003;</div><div><div class="tt">Brand-checked</div><div class="ts">colors and fonts locked</div></div></div><div class="task run"><div class="ck">&#8635;</div><div><div class="tt">Exporting</div><div class="ts">every format, no watermark</div></div></div></div></div><div class="flowcap"><span><b>Make the video.</b> &nbsp;One master cut.</span><span><b>Agents take the passes.</b> &nbsp;Resize, caption, brand-check, export.</span><span><b>You ship.</b> &nbsp;No double-checking every step by hand.</span></div></section>
+<section class="slide"><div class="topbar"><img class="logo" src="videfy_logo.png" alt="VIDEFY.ai"><span class="pageno">04</span></div><div style="margin-top:18px"></div><h2>What stops being manual.</h2><div class="levers"><div class="lever"><h4>Resizing</h4><p>Every ratio, without re-cropping by hand.</p></div><div class="lever"><h4>Captioning</h4><p>Auto-subtitles, not a manual pass.</p></div><div class="lever"><h4>Exporting</h4><p>Every format at once, no watermark.</p></div><div class="lever"><h4>Brand checks</h4><p>Colors and fonts stay locked automatically.</p></div><div class="lever"><h4>Updates</h4><p>A change flows through without redoing the rest.</p></div><div class="lever"><h4>The double-check</h4><p>Agents handle the passes a person used to.</p></div></div></section>
+<section class="slide"><div class="topbar"><img class="logo" src="videfy_logo.png" alt="VIDEFY.ai"><span class="pageno">05</span></div><div style="margin-top:54px"></div><h2>The hours go back into the work.</h2><p class="lead">The repetitive passes stop landing on a person — so the team spends its time creating, not managing exports.</p></section>
+<section class="slide center"><div class="topbar"><img class="logo" src="videfy_logo.png" alt="VIDEFY.ai"><span class="pageno">Get started</span></div><div class="eyebrow">Try it on your next cut</div>
+      <h1 style="font-size:58px;margin-top:18px">Make it once.<br><acc>Skip the rework.</acc></h1><div class="chips"><span class="chip">One master cut</span><span class="conn"></span><span class="chip">Auto resize</span><span class="conn"></span><span class="chip">Auto caption</span><span class="conn"></span><span class="chip live">One export</span></div>
+      <a class="btn" href="https://videfy.ai">Try Videfy &rarr;</a><p class="fine">Run one video through and watch the passes handle themselves. &nbsp;·&nbsp; videfy.ai</p></section>
+</div><div class="hint">← → move · F fullscreen · ⌘P / Ctrl-P export PDF · 6 slides</div>
+<script>
+const s=[...document.querySelectorAll('.slide')];let i=0;
+function go(n){i=Math.max(0,Math.min(s.length-1,n));s[i].scrollIntoView({behavior:'smooth',block:'center'});}
+addEventListener('keydown',e=>{if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();go(i+1);}else if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();go(i-1);}else if(e.key==='Home')go(0);else if(e.key==='End')go(s.length-1);else if(e.key.toLowerCase()==='f'){document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();}});
+</script></body></html>
